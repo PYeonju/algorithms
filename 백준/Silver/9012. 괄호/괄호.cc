@@ -12,7 +12,6 @@ int main()
     
     while(N--)
     {
-        string str = "YES";
         stack<char> temp;
         isCheck = false;
         
@@ -20,20 +19,28 @@ int main()
         
         for(auto c : input)
         {
-            if(c=='(')
+            if(temp.empty() || c=='(')
                 temp.push(c);
-            else if(!temp.empty() && c==')')
-                    temp.pop();
             else
             {
-                str = "NO";
-                break;
+                if(c==')' && temp.top() =='(')
+                    temp.pop();
+                else
+                {
+                    cout<<"NO\n";
+                    isCheck =true;
+                    break;
+                }
             }
         }
-        if(!temp.empty())
-            str = "NO";
+        if(isCheck)
+            continue;
         
-        cout<<str<<"\n";
+        if(temp.empty())
+            cout<<"YES\n";
+        else
+            cout<<"NO\n";
+        
     }
     
     return 0;
